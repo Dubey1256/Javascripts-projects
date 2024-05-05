@@ -1,63 +1,59 @@
-let branchs = document.querySelectorAll(".reviewCard");
+let slide = document.querySelectorAll(".patientCard");
 let card = document.querySelectorAll(".card");
-let crossBtn = document.getElementById("cross");
+let closeBtn = document.getElementById("close");
+let connectBtn = document.getElementById("connectBtn")
 
-
-let icon = document.getElementById("icon");
 let count = 0;
 
-branchs.forEach(function(card, index){
-    card.style.left=`${index*100}%`
+slide.forEach(function(slides, index){
+    slides.style.left=`${index * 100}%`
 })
 
 function myFun(){
-    branchs.forEach(function(crd){
-        crd.style.transform=`translateX(-${count * 100}%)`
+    slide.forEach(function(curVal){
+        curVal.style.transform=`translateX(-${count * 99}%)`
     })
 }
 
 setInterval(function(){
     count++;
-    if(count == branchs.length){
+    if(count == slide.length){
         count=0;
     }
     myFun();
-},2000)
+}, 2000)
 
 
-// darkmode
-icon.addEventListener("click", function(){
-    document.querySelector("body").classList.toggle("toggle");
-    if(icon.className == "fa-solid fa-moon"){
-        icon.className="fa-solid fa-sun"
-        icon.style.color="white"
-    }else{
-        icon.className="fa-solid fa-moon"
-        icon.style.color="black"
-
-    }
-    
-})
-
-// speciality
-card.forEach(function(curCard){
-    curCard.addEventListener("click", function(){
-        console.log(curCard);
-
-        let div = document.createElement("div");
-        div.classList.add("detailCard");
-        div.innerHTML=`
-        <i  id="cross" onclick="clicked()" class="fa-solid fa-xmark"></i>
-        <img src=${curCard.firstElementChild.src} alt="">
-        <h2>${curCard.lastElementChild.innerHTML}</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores culpa, ullam tempora dignissimos, quibusdam ab voluptatibus excepturi sint, nam reprehenderit tenetur neque placeat architecto. Sit?</p>
+card.forEach(function(cards){
+    cards.addEventListener("click", function(){
+        console.log(cards.firstElementChild.src);
+        document.querySelector(".content").style.display="block"
+       document.querySelector(".contentDetail").innerHTML=`
+        <img src=${cards.firstElementChild.src}>
+        <div>
+            <h1>DR Alexa Zoan</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore temporibus labore perspiciatis ut ab beatae error. Perspiciatis ratione eos id minus reiciendis!</p>
+        </div>
 
         `
-        document.querySelector("body").appendChild(div)
+        closeBtn.addEventListener("click", function(){
+            document.querySelector(".content").style.display="none"
+
+        })
     })
 })
 
-function clicked(){
-document.querySelector(".detailCard").remove();
-}
- 
+connectBtn.addEventListener("click", function(){
+    let email = document.getElementById("email");
+    let pass = document.getElementById("pass");
+
+    if(email.value == "" && pass.value ==  ""){
+        alert("Please Enter Detail")
+    }else{
+        alert("You Logged In")
+        email.value="";
+        pass.value="";
+
+    }
+
+})

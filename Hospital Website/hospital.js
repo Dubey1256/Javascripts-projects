@@ -1,55 +1,52 @@
-let card = document.querySelectorAll(".reviewCard");
-let icon = document.getElementById("icon");
-let count = 0;
-let surgery = document.querySelectorAll(".card");
+ let slide = document.querySelectorAll(".patientReview");
+ let card = document.querySelectorAll(".card");
+ let closeBtn = document.getElementById("closeBtn");
+ let connectBtn = document.getElementById("connectBtn");
 
-card.forEach(function(cards, index){
-    cards.style.left=`${index * 100}%`
-})
 
-function myFun(){
-    card.forEach(function(curVal){
+ let count = 0;
+
+ slide.forEach(function(slides, index){
+    slides.style.left=`${index * 100}%`
+ })
+
+ function myFun(){
+    slide.forEach(function(curVal){
         curVal.style.transform=`translateX(-${count * 100}%)`
     })
-}
-
-setInterval(function(){
+ }
+ setInterval(function(){
     count++;
-    if(card.length == count){
+    if(count == slide.length){
         count=0;
     }
     myFun()
-}, 2000)
+ }, 2000)
 
-
-
-icon.addEventListener("click", function(){
-    document.querySelector("body").classList.toggle("mode");
-    if(icon.className == "fa-solid fa-moon"){
-        icon.className="fa-solid fa-sun"
-    }
-    else{
-        icon.className = "fa-solid fa-moon"
-    }
-})
-
-surgery.forEach(function(curCard){
-    curCard.addEventListener("click", function(){
-        console.log(curCard.firstElementChild.src);
-
-        let div = document.createElement("div");
-        div.classList.add("detailCard");
-        div.innerHTML=`
-        <i id="cross" class="fa-solid fa-xmark"></i>
-        <img src=${curCard.firstElementChild.src} alt="">
-        <h1>${curCard.lastElementChild.innerHTML}</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut error modi minima numquam. Repellendus culpa aut, minus earum ab aspernatur voluptates est.</p>
-
+ card.forEach(function(cards){
+    cards.addEventListener("click", function(){
+        console.log(cards);
+        document.querySelector(".detail").style.display="block"
+        document.querySelector(".content").innerHTML=`
+        <img src=${cards.firstElementChild.src} alt="">
+        <div class="contentText">
+                    <h1>Alexa Zoan</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Commodi ex accusantium eius magnam, esse repellat veritatis, consectetur aut perspiciatis dolor labore sapiente.</p>
+        </div>
         `
-        document.querySelector("body").appendChild(div)
-
-        document.getElementById("cross").addEventListener("click", function(){
-            div.remove();
-        })
+       closeBtn.addEventListener("click", function(){
+        document.querySelector(".detail").style.display="none"
+       })
     })
-})
+ })
+
+ connectBtn.addEventListener("click", function(){
+    let email = document.getElementById("email");
+    let pass = document.getElementById("pass");
+
+    if(email.value == "" && pass.value == ""){
+        alert("Enter Details")
+    }else{
+        alert("You Logged IN")
+    }
+ })
